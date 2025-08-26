@@ -14,10 +14,10 @@ export default function Navbar() {
         <Link href="/" className="hover:text-secondary hover:scale-105 hover:underline transition-transform duration-200">
           Home
         </Link>
-        <Link href="/about" className="hover:text-secondary hover:scale-105 hover:underline transition-transform duration-200">
+        <Link href="../pages/aboutpage" className="hover:text-secondary hover:scale-105 hover:underline transition-transform duration-200">
           About
         </Link>
-        <Link href="/contact" className="hover:text-secondary hover:scale-105 hover:underline transition-transform duration-200">
+        <Link href="../pages/contactpage" className="hover:text-secondary hover:scale-105 hover:underline transition-transform duration-200">
           Contact
         </Link>
       </div>
