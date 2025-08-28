@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-muted/30 border-t border-border">
+    <footer className=" bg-muted/30 border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-12 grid md:grid-cols-4 gap-8">
@@ -71,6 +71,8 @@ export default function Footer() {
           <div className="text-sm text-muted-foreground mb-4 md:mb-0">
             ©2025 VeriCard.co.za All rights reserved.
           </div>
+
+          {/* Vivid */}
           <div className="py-6 flex flex-col md:flex-row justify-between items-center">
             <div className="text-sm text-muted-forground mb-4 md:mb-0">
                 Designed and Developed by <a href="vividgraphics.co.za">Vivid</a>            
