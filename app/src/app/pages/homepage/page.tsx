@@ -3,8 +3,8 @@
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Head from 'next/head';
-import Hero from '../components/hero';
-import About from '../components/about';
+import Hero from '../../components/hero';
+import About from '../../components/about';
 
 // Placeholder: Ensure SVGs are in public/icons/
 const cardIcons = [
@@ -18,7 +18,7 @@ export default function HomePage() {
   return (
     <>
    < Hero />
-   <About />
+   < About />
    </>
   );
 }
