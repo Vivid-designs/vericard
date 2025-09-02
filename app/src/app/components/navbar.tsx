@@ -28,13 +28,16 @@ export default function Navbar({ currentLanguage, onLanguageChange }: HeaderProp
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            <Link href="../pages/homepage" className="text-gray-700 hover:text-blue-800 hover:underline transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-blue-800 rounded-md" aria-label="Navigate to home">
+            <Link href="../pages/homepage" className="text-gray-700 hover:text-blue-800 hover:underline transition-colors font-medium focus:outline-none " aria-label="Navigate to home">
               Home
             </Link>
-            <Link href="../pages/aboutpage" className="text-gray-700 hover:text-blue-800 hover:underline transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-blue-800 rounded-md" aria-label="Navigate to the about us page">
+            <Link href="../pages/howitworkspage" className="text-gray-700 hover:text-blue-800 hover:underline transition-colors font-medium focus:outline-none " aria-label="Navigate to the contact us page">
+              How It Works
+            </Link>
+            <Link href="../pages/aboutpage" className="text-gray-700 hover:text-blue-800 hover:underline transition-colors font-medium focus:outline-none " aria-label="Navigate to the about us page">
               About
             </Link>
-            <Link href="../pages/contactpage" className="text-gray-700 hover:text-blue-800 hover:underline transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-blue-800 rounded-md" aria-label="Navigate to the contact us page">
+            <Link href="../pages/contactpage" className="text-gray-700 hover:text-blue-800 hover:underline transition-colors font-medium focus:outline-none " aria-label="Navigate to the contact us page">
               Contact Us
             </Link>
           </nav>
