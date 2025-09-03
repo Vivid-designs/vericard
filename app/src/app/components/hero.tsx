@@ -1,38 +1,47 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import Head from 'next/head';
-import Link from 'next/link';
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Head from "next/head";
+import Link from "next/link";
 
 // Placeholder: Ensure SVGs are in public/icons/
 const cardIcons = [
-  '/icons/visa.svg',
-  '/icons/mastercard.svg',
-  '/icons/amex.svg',
-  '/icons/unionpay.svg',
+  "/icons/visa.svg",
+  "/icons/mastercard.svg",
+  "/icons/amex.svg",
+  "/icons/unionpay.svg",
 ];
 
 export default function Hero() {
   const router = useRouter();
 
   const handleCTA = () => {
-    router.push('#verify');
+    router.push("#verify");
   };
   const handleLearnMore = () => {
-    router.push('/howitworkspage');
-  }
+    router.push("./pages/howitworkspage");
+  };
   return (
     <>
       <Head>
         <title>Vericard - Verify Your Card for South Africa</title>
-        <meta name="description" content="Check card compatibility for seamless transactions in South Africa." />
+        <meta
+          name="description"
+          content="Check card compatibility for seamless transactions in South Africa."
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <div className="min-h-screen flex flex-col bg-accent font-sans pb-12">
-        
         {/* Hero Section */}
         <main className="relative flex-grow flex flex-col justify-center items-center text-center p-8 space-y-6 bg-gradient-to-r from-blue-900 to-blue-200 overflow-hidden">
           {/* Background Overlay with Map (download free SVG, e.g., from Wikimedia) */}
@@ -47,26 +56,35 @@ export default function Hero() {
           </p>
           <div className="relative z-10 flex flex-wrap justify-center space-x-4 mb-4">
             {cardIcons.map((icon, idx) => (
-              <Image key={idx} src={icon} alt="Card Icon" width={48} height={32} className="h-8" />
+              <Image
+                key={idx}
+                src={icon}
+                alt="Card Icon"
+                width={48}
+                height={32}
+                className="h-8"
+              />
             ))}
           </div>
-          < div className="flex space-x-8">
-             <button
-            onClick={handleCTA}
-            className=" relative z-10 bg-blue-300 text-white hover:text-blue-300  hover:bg-white text-lg font-bold px-12 py-3 rounded-lg"
-            style={{ minHeight: '48px' }} // Fitts’s Law compliance
-          >
-            Check Your Card
-          </button>
-                    <button
-            onClick={handleLearnMore}
-            className=" relative z-10 bg-blue-300 text-white hover:text-blue-300  hover:bg-white text-lg font-bold px-12 py-3 rounded-lg"
-            style={{ minHeight: '48px' }} // Fitts’s Law compliance
-          >
-            Learn More
-          </button>
-          </ div>
-         
+<div className="flex space-x-8 py-8">
+            {/* Link to Verify Section */}
+            <Link
+              href="#verify"
+              className="relative z-10 bg-blue-300 transition delay-150 duration-300 ease-in-out hover:translate-y-1 hover:scale-110 text-white hover:text-blue-300 hover:bg-white text-lg font-bold px-12 py-3 rounded-lg"
+              style={{ minHeight: "48px" }}
+            >
+              Check Your Card
+            </Link>
+
+            {/* Link to Learn More Page */}
+            <Link
+              href="/pages/howitworkspage"
+              className="relative z-10 bg-blue-300 transition delay-150 duration-300 ease-in-out hover:translate-y-1 hover:scale-110 text-white hover:text-blue-300 hover:bg-white text-lg font-bold px-12 py-3 rounded-lg"
+              style={{ minHeight: "48px" }}
+            >
+              Learn More
+            </Link>
+          </div>
         </main>
       </div>
     </>

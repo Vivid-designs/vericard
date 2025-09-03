@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Head from 'next/head';
+import Link from 'next/link' ;
 
 // Placeholder: Ensure SVGs are in public/icons/
 const cardIcons = [
@@ -12,12 +13,15 @@ const cardIcons = [
   '/icons/unionpay.svg',
 ];
 
-export default function About() {
-  const router = useRouter();
 
-  const handleCTA = () => {
-    router.push('/verify');
-  };
+export default function About() {
+
+  const router = useRouter();
+  const HandleAboutCTA = () => {
+  const router = useRouter();
+  router.push('./pages/aboutpage');
+}
+
 
   return (
     <>
@@ -33,12 +37,13 @@ export default function About() {
             <p className="text-lg text-neutral max-w-2xl mx-auto">
               With a focus on innovation and trust, we support Visa, MasterCard, Amex, and UnionPay, adhering to PCI-DSS and POPIA standards.
             </p>
-            <button
-              className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-opacity-90 mt-6"
-              style={{ minHeight: '48px' }} // Fitts’s Law
+ <Link
+              href="/pages/howitworkspage"
+              className="relative z-10 bg-blue-300 transition delay-150 duration-300 ease-in-out hover:translate-y-1 hover:scale-110 text-white hover:text-blue-300 hover:bg-white text-lg font-bold px-12 py-3 rounded-lg"
+              style={{ minHeight: "48px" }}
             >
               Learn More
-            </button>
+            </Link>
           </div>
         </section>
     </>
