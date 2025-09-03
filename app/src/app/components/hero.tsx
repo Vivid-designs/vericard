@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Head from 'next/head';
+import Link from 'next/link';
 
 // Placeholder: Ensure SVGs are in public/icons/
 const cardIcons = [
@@ -18,7 +19,9 @@ export default function Hero() {
   const handleCTA = () => {
     router.push('#verify');
   };
-
+  const handleLearnMore = () => {
+    router.push('/howitworkspage');
+  }
   return (
     <>
       <Head>
@@ -28,7 +31,7 @@ export default function Hero() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
       </Head>
-      <div className="min-h-screen flex flex-col bg-accent font-sans">
+      <div className="min-h-screen flex flex-col bg-accent font-sans pb-12">
         
         {/* Hero Section */}
         <main className="relative flex-grow flex flex-col justify-center items-center text-center p-8 space-y-6 bg-gradient-to-r from-blue-900 to-blue-200 overflow-hidden">
@@ -47,13 +50,23 @@ export default function Hero() {
               <Image key={idx} src={icon} alt="Card Icon" width={48} height={32} className="h-8" />
             ))}
           </div>
-          <button
+          < div className="flex space-x-8">
+             <button
             onClick={handleCTA}
-            className=" relative z-10 text-white hover:text-white hover: bg-blue-300 text-lg font-bold px-12 py-3 rounded-lg"
+            className=" relative z-10 bg-blue-300 text-white hover:text-blue-300  hover:bg-white text-lg font-bold px-12 py-3 rounded-lg"
             style={{ minHeight: '48px' }} // Fitts’s Law compliance
           >
             Check Your Card
           </button>
+                    <button
+            onClick={handleLearnMore}
+            className=" relative z-10 bg-blue-300 text-white hover:text-blue-300  hover:bg-white text-lg font-bold px-12 py-3 rounded-lg"
+            style={{ minHeight: '48px' }} // Fitts’s Law compliance
+          >
+            Learn More
+          </button>
+          </ div>
+         
         </main>
       </div>
     </>
