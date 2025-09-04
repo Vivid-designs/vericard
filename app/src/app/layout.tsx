@@ -30,9 +30,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        < Navbar />
-        {children}
-        < Footer />
+        <Navbar
+          currentLanguage="en"
+          onLanguageChange={(lang) => console.log("Switch to:", lang)}
+        />
+
+        <Footer />
       </body>
     </html>
   );
