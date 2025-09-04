@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
 import Footer from "./components/footer";
 import Navbar from "./components/navbar";
 
@@ -17,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "VeriCard",
-  description: "Secure, Simple and fast card verification ",
+  description: "Secure, Simple and fast card verification",
 };
 
 export default function RootLayout({
@@ -30,11 +29,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar
-          currentLanguage="en"
-          onLanguageChange={(lang) => console.log("Switch to:", lang)}
-        />
-
+        <Navbar />
+        {children}
         <Footer />
       </body>
     </html>

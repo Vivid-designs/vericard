@@ -3,18 +3,14 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { Globe, Menu, X } from 'lucide-react';
 
-interface HeaderProps {
-  currentLanguage: string;
-  onLanguageChange: (lang: string) => void;
-}
-
-export default function Navbar({ currentLanguage, onLanguageChange }: HeaderProps) {
+export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState('en');
 
   const languages = [
     { code: 'en', label: 'English' },
     { code: 'zh', label: '中文' },
-    { code: 'de', label: 'Deutsch' }
+    { code: 'de', label: 'Deutsch' },
   ];
 
   return (
@@ -23,21 +19,37 @@ export default function Navbar({ currentLanguage, onLanguageChange }: HeaderProp
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold text-blue-800">VeriCard</h1> 
+            <h1 className="text-2xl font-bold text-blue-800">VeriCard</h1>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            <Link href="../pages/homepage" className="text-gray-700 hover:text-blue-800 hover:underline transition-colors font-medium focus:outline-none " aria-label="Navigate to home">
+            <Link
+              href="/homepage"
+              className="text-gray-700 hover:text-blue-800 hover:underline transition-colors font-medium focus:outline-none"
+              aria-label="Navigate to home"
+            >
               Home
             </Link>
-            <Link href="../pages/howitworkspage" className="text-gray-700 hover:text-blue-800 hover:underline transition-colors font-medium focus:outline-none " aria-label="Navigate to the contact us page">
+            <Link
+              href="/how-it-works"
+              className="text-gray-700 hover:text-blue-800 hover:underline transition-colors font-medium focus:outline-none"
+              aria-label="Navigate to how it works"
+            >
               How It Works
             </Link>
-            <Link href="../pages/aboutpage" className="text-gray-700 hover:text-blue-800 hover:underline transition-colors font-medium focus:outline-none " aria-label="Navigate to the about us page">
+            <Link
+              href="/about"
+              className="text-gray-700 hover:text-blue-800 hover:underline transition-colors font-medium focus:outline-none"
+              aria-label="Navigate to the about us page"
+            >
               About
             </Link>
-            <Link href="../pages/contactpage" className="text-gray-700 hover:text-blue-800 hover:underline transition-colors font-medium focus:outline-none " aria-label="Navigate to the contact us page">
+            <Link
+              href="/contact"
+              className="text-gray-700 hover:text-blue-800 hover:underline transition-colors font-medium focus:outline-none"
+              aria-label="Navigate to the contact us page"
+            >
               Contact Us
             </Link>
           </nav>
@@ -48,7 +60,7 @@ export default function Navbar({ currentLanguage, onLanguageChange }: HeaderProp
             <div className="relative">
               <select
                 value={currentLanguage}
-                onChange={(e) => onLanguageChange(e.target.value)}
+                onChange={(e) => setCurrentLanguage(e.target.value)}
                 className="appearance-none bg-transparent border border-gray-300 rounded-md px-3 py-1 pr-8 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-800"
                 aria-label="Select language"
               >
@@ -80,24 +92,37 @@ export default function Navbar({ currentLanguage, onLanguageChange }: HeaderProp
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-gray-200 py-4 space-y-2">
-            <a 
-              href="#home" 
+            <Link
+              href="/homepage"
               className="block px-4 py-2 text-gray-700 hover:text-blue-800 hover:bg-gray-50 rounded-md transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-blue-800"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Home
-            </a>
-            <a 
-              href="#about" 
+            </Link>
+            <Link
+              href="/how-it-works"
+              className="block px-4 py-2 text-gray-700 hover:text-blue-800 hover:bg-gray-50 rounded-md transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-blue-800"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              How It Works
+            </Link>
+            <Link
+              href="/about"
               className="block px-4 py-2 text-gray-700 hover:text-blue-800 hover:bg-gray-50 rounded-md transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-blue-800"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               About
-            </a>
+            </Link>
+            <Link
+              href="/contact"
+              className="block px-4 py-2 text-gray-700 hover:text-blue-800 hover:bg-gray-50 rounded-md transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-blue-800"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Contact Us
+            </Link>
           </div>
         )}
       </div>
     </header>
   );
 }
-
