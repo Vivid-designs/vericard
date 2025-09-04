@@ -14,14 +14,6 @@ const cardIcons = [
 ];
 
 export default function Hero() {
-  const router = useRouter();
-
-  const handleCTA = () => {
-    router.push("#verify");
-  };
-  const handleLearnMore = () => {
-    router.push("./pages/howitworkspage");
-  };
   return (
     <>
       <Head>

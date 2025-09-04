@@ -1,8 +1,8 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import Head from 'next/head';
+//import { useRouter } from 'next/navigation';
+// import Image from 'next/image';
+// import Head from 'next/head';
 import Link from 'next/link' ;
 
 // Placeholder: Ensure SVGs are in public/icons/
@@ -15,12 +15,6 @@ const cardIcons = [
 
 
 export default function About() {
-
-  const router = useRouter();
-  const HandleAboutCTA = () => {
-  const router = useRouter();
-  router.push('./pages/aboutpage');
-}
 
 
   return (

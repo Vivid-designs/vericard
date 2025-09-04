@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image'; // For optimized images/SVGs if needed later
+// import Link from 'next/link';
+// import Image from 'next/image'; // For optimized images/SVGs if needed later
 import Head from 'next/head'; // For SEO/title
 
 export default function AboutPage() {
@@ -39,9 +39,9 @@ export default function AboutPage() {
           <div className="border rounded-lg shadow-sm bg-muted/50"> {/* Replaces Card with bg-muted/50 */}
             <div className="p-8"> {/* Replaces CardContent */}
               <blockquote className="text-lg italic text-center mb-6">
-                "After watching too many friends struggle with payment issues during their South African adventures, 
+                &qout;After watching too many friends struggle with payment issues during their South African adventures, 
                 We knew there had to be a better way. VeriCard is our solution to turn payment uncertainty into 
-                travel confidence."
+                travel confidence.&qout;
               </blockquote>
               <div className="text-center">
                 <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
@@ -75,7 +75,7 @@ export default function AboutPage() {
           <div className="p-8 text-center"> {/* Replaces CardContent */}
             <h3 className="text-xl mb-4">Get in Touch</h3>
             <p className="text-muted-foreground mb-6">
-              Have questions or feedback? We'd love to hear from you.
+              Have questions or feedback? We&apos;d love to hear from you.
             </p>
             <div className="flex justify-center space-x-4">
               <button className="border rounded px-4 py-2 hover:bg-gray-100 transition-colors"> {/* Replaces Button variant="outline" */}
@@ -84,7 +84,7 @@ export default function AboutPage() {
               <button className="border rounded px-4 py-2 hover:bg-gray-100 transition-colors"> {/* Replaces Button variant="outline" */}
                 💬 Live Chat
               </button>
-            </div>
+            </div>          
           </div>
         </div>
       </div>

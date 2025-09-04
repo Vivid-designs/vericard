@@ -1,4 +1,5 @@
-import Link from "next/link";
+//import Link from "next/link";
+//to be commented back later for all footer links
 
 export default function Footer() {
   return (
@@ -15,7 +16,7 @@ export default function Footer() {
               <span className="font-semibold">VeriCard</span>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
-              Verify your card's South African compatibility before you travel.
+              Verify your card&apos;s South African compatibility before you travel.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-muted-foreground hover:text-primary text-sm">

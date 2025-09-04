@@ -27,7 +27,7 @@ export default function HowItWorks() {
       <div className="text-center mb-16">
         <h1 className="text-4xl mb-4">How It Works</h1>
         <p className="text-xl text-gray-500 max-w-2xl mx-auto">  {/* Assuming text-muted-foreground ≈ text-gray-500 */}
-          Get instant clarity on your card's compatibility with South African payment systems
+          Get instant clarity on your card&apos;s compatibility with South African payment systems
         </p>
       </div>
 
