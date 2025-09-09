@@ -16,17 +16,14 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-6xl rounded-full bg-white backdrop-blur-md shadow-lg border border-white/10">
-      <div className="flex items-center justify-between px-6 py-3">
+      <div className="flex items-center justify-between px-6 py-5">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0 text-xl font-bold text-gray-800">
           Veri<span className='text-blue-500'>Card</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6 text-m* font-large text-gray-550">
-          <Link href="/" className="hover:text-blue-500 transition">
-            Home
-          </Link>
+        <nav className="hidden md:flex items-end gap-6 text-l font-large text-gray-550 ">
           <Link href="/pages/howitworkspage" className="hover:text-blue-500 transition">
             How It Works
           </Link>
@@ -74,9 +71,9 @@ export default function Navbar() {
             aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? (
-              <X className="h-6 w-6 text-white" />
+              <X className="h-6 w-6 text-gray-700" />
             ) : (
-              <Menu className="h-6 w-6 text-white" />
+              <Menu className="h-6 w-6 text-gray-700" />
             )}
           </button>
         </div>
@@ -84,14 +81,7 @@ export default function Navbar() {
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-white/10 py-4 space-y-2 bg-black/80 backdrop-blur-md rounded-b-2xl">
-          <Link
-            href="/"
-            className="block px-6 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-md transition"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Home
-          </Link>
+        <div className="md:hidden border-t border-white/10 py-4 space-y-2 bg-black/20 backdrop-blur-md rounded-xl">
           <Link
             href="/pages/howitworkspage"
             className="block px-6 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-md transition"
