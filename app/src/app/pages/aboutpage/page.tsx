@@ -42,7 +42,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white ">
       {/* Hero Section - Matching your hero style */}
       <section className="relative bg-gradient-to-br from-blue-50 to-white pt-32 pb-20 overflow-hidden">
         {/* Background animations matching your hero */}
@@ -53,7 +53,7 @@ export default function AboutPage() {
           <div className="absolute top-40 right-1/4 w-1.5 h-1.5 bg-blue-500/50 rounded-full animate-pulse delay-700"></div>
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-16">
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-16 py-32">
           <div className="text-center">
             <div className="inline-flex items-center gap-2 rounded-md border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-gray-700 shadow-sm mb-6">
               <Shield className="h-4 w-4 text-blue-500" />
@@ -65,7 +65,7 @@ export default function AboutPage() {
             </h1>
             
             <p className="mt-6 text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
-              We're eliminating payment stress for travelers heading to South Africa. 
+              We&apos;re eliminating payment stress for travelers heading to South Africa. 
               Test your cards before you travel and enjoy peace of mind.
             </p>
 
@@ -189,9 +189,9 @@ export default function AboutPage() {
               </div>
               
               <blockquote className="text-xl italic text-gray-700 mb-8 max-w-2xl mx-auto leading-relaxed">
-                "After watching too many friends struggle with payment issues during their South African adventures, 
+                &quot;After watching too many friends struggle with payment issues during their South African adventures, 
                 we knew there had to be a better way. VeriCard is our solution to turn payment uncertainty into 
-                travel confidence."
+                travel confidence.&quot;
               </blockquote>
               
               <div>
@@ -215,7 +215,7 @@ export default function AboutPage() {
             
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Get in Touch</h2>
             <p className="text-gray-600 mb-8 leading-relaxed">
-              Have questions or feedback? We'd love to hear from you and help make your South African travel experience seamless.
+              Have questions or feedback? We&apos;d love to hear from you and help make your South African travel experience seamless.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
