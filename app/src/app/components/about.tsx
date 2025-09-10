@@ -77,7 +77,7 @@ export default function AboutPage() {
             </h1>
             
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-8">
-              We're on a mission to eliminate payment stress for travelers heading to South Africa. 
+              We&apos;re on a mission to eliminate payment stress for travelers heading to South Africa. 
               No more declined cards, no more surprises—just confident travel.
             </p>
 
@@ -206,9 +206,9 @@ export default function AboutPage() {
               </div>
               
               <blockquote className="text-xl italic text-gray-700 mb-8 max-w-2xl mx-auto">
-                "After watching too many friends struggle with payment issues during their South African adventures, 
+                &quot;After watching too many friends struggle with payment issues during their South African adventures, 
                 we knew there had to be a better way. VeriCard is our solution to turn payment uncertainty into 
-                travel confidence."
+                travel confidence.&quot;
               </blockquote>
               
               <div>
@@ -225,7 +225,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-4xl px-6 lg:px-16 text-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">Get in Touch</h2>
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Have questions or feedback? We'd love to hear from you and help make your South African travel experience seamless.
+            Have questions or feedback? We&apos;d love to hear from you and help make your South African travel experience seamless.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
