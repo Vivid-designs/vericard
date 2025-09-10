@@ -110,7 +110,7 @@ export default function AboutPage() {
               <div 
                 key={index} 
                 className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 text-center hover:shadow-xl hover:border-blue-300 transform hover:-translate-y-1 transition-all duration-300 cursor-pointer"
-                onMouseEnter={() => setHoveredStat(index)}
+                //onMouseEnter={() => setHoveredStat(index)}
                 onMouseLeave={() => setHoveredStat(null)}
               >
                 <div className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r ${stat.color} rounded-lg mb-4 transform transition-transform duration-200 ${hoveredStat === index ? 'scale-110' : ''}`}>
@@ -161,7 +161,7 @@ export default function AboutPage() {
               <div 
                 key={index}
                 className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl hover:border-blue-300 transform hover:-translate-y-1 transition-all duration-300"
-                onMouseEnter={() => setHoveredValue(index)}
+                //onMouseEnter={() => setHoveredValue(index)}
                 onMouseLeave={() => setHoveredValue(null)}
               >
                 <div className="flex items-start gap-4 mb-4">
