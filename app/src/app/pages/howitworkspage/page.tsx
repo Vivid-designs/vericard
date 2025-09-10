@@ -23,7 +23,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <div className="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-4xl mx-auto py-58 px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-16">
         <h1 className="text-4xl mb-4">How It Works</h1>
         <p className="text-xl text-gray-500 max-w-2xl mx-auto">  {/* Assuming text-muted-foreground ≈ text-gray-500 */}

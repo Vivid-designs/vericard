@@ -50,8 +50,8 @@ export default function VerifyCard() {
   };
 
   return (
-    <div>
-        <h1 id="verify" className="text-3xl font-bold text-center mb-6">Verify Your Card</h1>
+    <div className='relative bg-gradient-to-br from-blue-50 to-white pt-32 pb-20 overflow-hidden'>
+        <h1 id="verify" className="text-3xl font-bold text-center mb-6 ">Verify Your Card</h1>
         
     <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md space-y-6">
       {/* Card Number */}
