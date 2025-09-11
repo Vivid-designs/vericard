@@ -196,7 +196,7 @@ export default function HowItWorks() {
             <div className="bg-white/80 rounded-lg p-6 border border-blue-100">
               <p className="text-sm text-gray-600 leading-relaxed text-center">
                 Your card information is processed securely and never stored on our servers. 
-                We comply with all relevant data protection regulations including PCI-DSS and South Africa's POPIA. 
+                We comply with all relevant data protection regulations including PCI-DSS and South Africa&apos;s POPIA. 
                 All data is encrypted in transit and immediately deleted after verification.
               </p>
             </div>
@@ -219,8 +219,8 @@ export default function HowItWorks() {
             </div>
 
             <div className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md hover:border-blue-300 transition-all duration-200">
-              <h3 className="font-semibold text-gray-900 mb-2">What if my card doesn't work?</h3>
-              <p className="text-gray-600">We'll provide specific guidance on contacting your bank, plus recommend alternative payment methods for your trip.</p>
+              <h3 className="font-semibold text-gray-900 mb-2">What if my card doesn&apos;t work?</h3>
+              <p className="text-gray-600">We&apos;ll provide specific guidance on contacting your bank, plus recommend alternative payment methods for your trip.</p>
             </div>
 
             <div className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md hover:border-blue-300 transition-all duration-200">
