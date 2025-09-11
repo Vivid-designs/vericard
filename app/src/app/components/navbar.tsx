@@ -79,7 +79,7 @@ export default function Navbar() {
           {/* Enhanced Language Selector */}
           <div className="relative hidden md:block">
             <button
-              onClick={(e) => {
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                 e.stopPropagation();
                 setIsLanguageOpen(!isLanguageOpen);
               }}
@@ -160,7 +160,7 @@ export default function Navbar() {
               <span className="text-sm font-medium text-gray-600">Language</span>
               <select
                 value={currentLanguage}
-                onChange={(e) => setCurrentLanguage(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCurrentLanguage(e.target.value)}
                 className="bg-blue-50 border border-blue-200 rounded-lg px-3 py-1 text-sm font-medium text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
               >
                 {languages.map((lang) => (

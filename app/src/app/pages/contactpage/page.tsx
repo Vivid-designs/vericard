@@ -1,7 +1,3 @@
-// import Link from "next/link";
-// import Image from "next/image"; // For optimized images/SVGs
-// import Head from "next/head"; // For SEO/title
-
 "use client";
 
 import { useState } from 'react';
@@ -18,7 +14,8 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
 
-  const handleInputChange = (e) => {
+  // Fix: Add proper TypeScript types for event handlers
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -26,7 +23,7 @@ export default function ContactPage() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     
@@ -51,7 +48,7 @@ export default function ContactPage() {
               Get in Touch
             </h1>
             <p className="mt-6 text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
-              Have questions about VeriCard? We're here to help. Reach out to us and we'll get back to you as soon as possible.
+              Have questions about VeriCard? We&apos;re here to help. Reach out to us and we&apos;ll get back to you as soon as possible.
             </p>
           </div>
         </div>
@@ -95,7 +92,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold text-gray-900">Email</h3>
                     <p className="text-gray-600">support@vericard.com</p>
-                    <p className="text-sm text-gray-500">We'll respond within 24 hours</p>
+                    <p className="text-sm text-gray-500">We&apos;ll respond within 24 hours</p>
                   </div>
                 </div>
 
@@ -141,7 +138,7 @@ export default function ContactPage() {
                   Send us a Message
                 </h2>
                 <p className="text-gray-600">
-                  Fill out the form below and we'll get back to you shortly.
+                  Fill out the form below and we&apos;ll get back to you shortly.
                 </p>
               </div>
 
@@ -151,7 +148,7 @@ export default function ContactPage() {
                     <MessageSquare className="h-5 w-5 text-green-600" />
                     <p className="text-green-800 font-medium">Message sent successfully!</p>
                   </div>
-                  <p className="text-green-700 text-sm mt-1">We'll get back to you within 24 hours.</p>
+                  <p className="text-green-700 text-sm mt-1">We&apos;ll get back to you within 24 hours.</p>
                 </div>
               )}
 
@@ -268,7 +265,7 @@ export default function ContactPage() {
                 How quickly can I verify my cards?
               </h3>
               <p className="text-gray-600">
-                Card verification typically takes 2-3 minutes per card. You'll get instant results showing whether your card will work in South Africa.
+                Card verification typically takes 2-3 minutes per card. You&apos;ll get instant results showing whether your card will work in South Africa.
               </p>
             </div>
 
@@ -283,10 +280,10 @@ export default function ContactPage() {
 
             <div className="bg-white rounded-lg border border-gray-200 p-6">
               <h3 className="font-semibold text-gray-900 mb-2">
-                What if my card doesn't work?
+                What if my card doesn&apos;t work?
               </h3>
               <p className="text-gray-600">
-                If your card fails verification, we'll provide specific guidance on what to do, including contacting your bank or getting alternative payment methods for your trip.
+                If your card fails verification, we&apos;ll provide specific guidance on what to do, including contacting your bank or getting alternative payment methods for your trip.
               </p>
             </div>
           </div>
