@@ -58,7 +58,7 @@ export default function Footer() {
             </div>
             
             <p className="text-gray-600 leading-relaxed mb-6">
-              Verify your card's South African compatibility before you travel. 
+              Verify your card&apos;s South African compatibility before you travel. 
               No surprises, just confident payments.
             </p>
 
