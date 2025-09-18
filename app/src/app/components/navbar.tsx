@@ -127,9 +127,9 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Enhanced Mobile Menu Button */}
+          {/* Enhanced Mobile Menu Button - FIXED NOT */}
           <button
-            className="md:hidden p-2.5 rounded-xl hover:bg-blue-50 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-all duration-200 group"
+            className="md:hidden p-2.5 rounded-xl hover:bg-blue-50 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-colors duration-200 "
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle mobile menu"
             aria-expanded={isMobileMenuOpen}
@@ -151,7 +151,8 @@ export default function Navbar() {
 
       {/* Enhanced Mobile Navigation */}
       <div className={`md:hidden border-t border-white/20 transition-all duration-300 overflow-hidden ${
-        isMobileMenuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
+        //todo fix mobile menu 
+        isMobileMenuOpen ? 'max-h-100 opacity-100' : 'max-h-0 opacity-0'
       }`}>
         <div className="bg-white/95 backdrop-blur-xl rounded-b-2xl py-4 space-y-1">
           {/* Mobile Language Selector */}
