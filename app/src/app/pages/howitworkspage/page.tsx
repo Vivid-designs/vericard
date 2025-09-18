@@ -79,7 +79,7 @@ export default function HowItWorks() {
             </h1>
             
             <p className="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8">
-              Get instant clarity on your card&qouts;s compatibility with South African payment systems. 
+              Get instant clarity on your card&apos;s compatibility with South African payment systems. 
               Simple, secure, and lightning fast.
             </p>
 
@@ -131,7 +131,7 @@ export default function HowItWorks() {
                   <div className={`absolute inset-0 bg-gradient-to-br ${step.bgColor} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
                   
                   {/* Step Number Badge */}
-                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-lg">
+                  <div className="absolute -top-0.2 -right-0.2 w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-lg">
                     {step.number}
                   </div>
 

@@ -31,7 +31,6 @@ export default function Footer() {
 
   const socialLinks = [
     { name: 'Support', href: 'mailto:support@vericard.co.za', icon: Mail, color: 'hover:text-blue-600' },
-    { name: 'Twitter', href: '#', icon: Twitter, color: 'hover:text-sky-500' },
     { name: 'LinkedIn', href: '#', icon: Linkedin, color: 'hover:text-blue-700' }
   ];
 

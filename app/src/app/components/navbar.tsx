@@ -119,7 +119,7 @@ export default function Navbar() {
           {/* Enhanced CTA Button */}
           <div className="hidden md:block">
             <Link
-              href="/get-started"
+              href="/pages/verifypage"
               className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:from-blue-600 hover:to-blue-700 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 group"
             >
               Get Started

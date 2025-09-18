@@ -28,7 +28,7 @@ export default function Hero() {
             {/* CTA */}
             <div className="mt-8">
               <Link
-                href="/get-started"
+                href="/pages/verifypage"
                 className="inline-flex items-center rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-md hover:from-blue-600 hover:to-blue-700 transition"
               >
                 Get Started
