@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Globe, Menu, X, ChevronDown } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -46,7 +47,7 @@ export default function Navbar() {
           href="/" 
           className="flex-shrink-0 text-xl font-bold text-gray-800 hover:scale-105 transition-transform duration-200"
         >
-          Veri<span className='text-blue-500 hover:text-blue-600 transition-colors'>Card</span>
+          <image/>Veri<span className='text-blue-500 hover:text-blue-600 transition-colors'>Card</span>
         </Link>
 
         {/* Desktop Navigation */}

@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "VeriCard",
   description: "Secure, Simple and fast card verification",
+  icons: {
+    icon: "/v-logo.svg", 
+  },
 };
 
 export default function RootLayout({

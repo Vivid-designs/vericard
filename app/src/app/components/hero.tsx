@@ -39,11 +39,12 @@ export default function Hero() {
           {/* Right Image */}
           <div className="relative">
             <Image
-              src="/Gradient hand card.png"
-              alt="Dashboard screenshot"
-              width={1000}
-              height={800}
-              className="rounded-xl shadow-lg"
+            src={"/v-logo.png"}
+            alt="Hero Image"
+            width={500}
+            height={500}
+            className="w-full h-auto rounded-lg shadow-lg"
+            priority
             />
           </div>
         </div>
