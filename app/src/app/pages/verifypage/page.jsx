@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CheckCircle, AlertTriangle, CreditCard, Shield, Globe, Users, Clock, Zap, Star, ArrowRight, Lock } from 'lucide-react';
+import { CheckCircle, AlertTriangle, CreditCard, Shield, Globe, Users, Clock, Zap, Star, ArrowRight, Lock, XCircle } from 'lucide-react';
 
 export default function ComprehensiveCardVerification() {
   const [cardNumber, setCardNumber] = useState('');
@@ -65,36 +65,54 @@ export default function ComprehensiveCardVerification() {
     setExpiry(value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!validate()) return;
     
     setLoading(true);
     setCurrentStep(2);
+    setErrors({});
     
-    // Simulate comprehensive card testing
-    setTimeout(() => {
-      const mockResults = {
-        cardValid: true,
-        cardType: cardType,
-        issuerBank: issuer || 'Unknown Bank',
-        southAfricaCompatibility: {
-          mastercard: cardType === 'MasterCard' ? 'excellent' : 'good',
-          visa: cardType === 'Visa' ? 'excellent' : 'good',
-          amex: cardType === 'American Express' ? 'limited' : 'good',
-          localBanks: Math.random() > 0.3 ? 'compatible' : 'limited'
+    try {
+      // Call the BIN lookup API
+      const response = await fetch('/api/validate-card/free', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        recommendedActions: [
-          'Notify your bank of international travel',
-          'Ensure sufficient daily withdrawal limits',
-          'Consider carrying a backup payment method'
-        ],
-        testScore: Math.floor(Math.random() * 30) + 70
-      };
+        body: JSON.stringify({
+          cardNumber: cardNumber.replace(/\s/g, ''),
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Validation failed');
+      }
+
+      const result = await response.json();
       
-      setTestResults(mockResults);
-      setLoading(false);
+      // Set the results with the data from the API
+      setTestResults({
+        cardValid: result.isValid,
+        cardType: result.details.cardBrand || cardType,
+        issuerBank: result.details.issuingBank || issuer || 'Unknown Bank',
+        issuingCountry: result.details.issuingCountry,
+        southAfricaCompatibility: result.details.southAfricaCompatibility,
+        recommendedActions: result.details.recommendedActions,
+        warnings: result.details.warnings || [],
+        testScore: result.testScore,
+        confidence: result.confidence,
+        message: result.message,
+      });
+      
       setCurrentStep(3);
-    }, 3000);
+    } catch (error) {
+      console.error('Validation error:', error);
+      setErrors({ submit: error.message || 'Failed to validate card. Please try again.' });
+      setCurrentStep(1);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const resetTest = () => {
@@ -162,7 +180,6 @@ export default function ComprehensiveCardVerification() {
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-32 pb-20 overflow-hidden">
-        {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-200 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-200 rounded-full blur-3xl animate-pulse delay-1000"></div>
@@ -191,7 +208,7 @@ export default function ComprehensiveCardVerification() {
                 className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3 text-white font-semibold hover:from-blue-600 hover:to-blue-700 transition"
               >
                 <Zap className="h-4 w-4" />
-                Test My Card
+                Test My Card - Free
               </button>
               <button 
                 onClick={() => document.getElementById('info')?.scrollIntoView({ behavior: 'smooth' })}
@@ -204,21 +221,28 @@ export default function ComprehensiveCardVerification() {
         </div>
       </section>
 
-            {/* Verification Form Section */}
+      {/* Verification Form Section */}
       <section id="verify-form" className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="mx-auto max-w-4xl px-6 lg:px-16">
           <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
             {currentStep === 1 && (
               <div className="p-8 space-y-6">
                 <div className="text-center mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">Enter Your Card Details</h2>
+                  <h2 className="text-2xl font-bold text-gray-900">Free Quick Check (90% Accurate)</h2>
                   <p className="text-gray-600">We'll test your card's compatibility with South African payment systems</p>
                 </div>
+
+                {errors.submit && (
+                  <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+                    <XCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-red-700">{errors.submit}</p>
+                  </div>
+                )}
 
                 {/* Card Number */}
                 <div>
                   <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-700 mb-2">
-                    Card Number *
+                    Card Number * (First 8 digits minimum for free check)
                   </label>
                   <div className="relative">
                     <input
@@ -226,17 +250,20 @@ export default function ComprehensiveCardVerification() {
                       type="text"
                       value={cardNumber}
                       onChange={handleCardNumberChange}
-                      placeholder="1234 5678 9012 3456"
+                      placeholder="4571 7360 1234 5678"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg"
                       aria-invalid={!!errors.cardNumber}
                     />
                     {cardType && (
                       <div className="absolute right-3 top-3">
-                        <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">{cardType}</span>
+                        <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded font-medium">{cardType}</span>
                       </div>
                     )}
                   </div>
                   {errors.cardNumber && <p className="mt-1 text-sm text-red-600">{errors.cardNumber}</p>}
+                  <p className="mt-1 text-xs text-gray-500">
+                    We only use the first 8 digits for free validation. Your full card number is never stored.
+                  </p>
                 </div>
 
                 {/* Expiry and CVV */}
@@ -308,10 +335,11 @@ export default function ComprehensiveCardVerification() {
 
                 <button
                   onClick={handleSubmit}
-                  className="w-full py-4 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-lg rounded-lg shadow-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105"
+                  disabled={loading}
+                  className="w-full py-4 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-lg rounded-lg shadow-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   <Zap className="inline w-5 h-5 mr-2" />
-                  Start Verification Test
+                  {loading ? 'Testing Card...' : 'Start Free Verification Test'}
                 </button>
               </div>
             )}
@@ -343,27 +371,74 @@ export default function ComprehensiveCardVerification() {
                       <AlertTriangle className={`w-8 h-8 ${testResults.testScore >= 60 ? 'text-yellow-600' : 'text-red-600'}`} />
                     )}
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900">Test Complete!</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{testResults.message}</h3>
                   <p className="text-lg text-gray-600">Card Score: {testResults.testScore}/100</p>
+                  {testResults.issuingCountry && (
+                    <p className="text-sm text-gray-500 mt-1">Issued in: {testResults.issuingCountry}</p>
+                  )}
                 </div>
 
                 <div className="space-y-4">
                   <div className="bg-gray-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-gray-900 mb-2">South Africa Compatibility</h4>
+                    <h4 className="font-semibold text-gray-900 mb-3">South Africa Compatibility</h4>
                     <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span>Major Banks:</span>
-                        <span className={`font-medium ${testResults.southAfricaCompatibility.localBanks === 'compatible' ? 'text-green-600' : 'text-yellow-600'}`}>
-                          {testResults.southAfricaCompatibility.localBanks === 'compatible' ? 'Fully Compatible' : 'Limited'}
+                      <div className="flex justify-between items-center">
+                        <span>Visa Network:</span>
+                        <span className={`font-medium capitalize px-3 py-1 rounded-full text-xs
+                          ${testResults.southAfricaCompatibility.visa === 'excellent' ? 'bg-green-100 text-green-700' : 
+                            testResults.southAfricaCompatibility.visa === 'good' ? 'bg-blue-100 text-blue-700' : 
+                            'bg-yellow-100 text-yellow-700'}`}>
+                          {testResults.southAfricaCompatibility.visa}
                         </span>
                       </div>
-                      <div className="flex justify-between">
-                        <span>Card Network:</span>
-                        <span className="font-medium text-green-600">Excellent</span>
+                      <div className="flex justify-between items-center">
+                        <span>Mastercard Network:</span>
+                        <span className={`font-medium capitalize px-3 py-1 rounded-full text-xs
+                          ${testResults.southAfricaCompatibility.mastercard === 'excellent' ? 'bg-green-100 text-green-700' : 
+                            testResults.southAfricaCompatibility.mastercard === 'good' ? 'bg-blue-100 text-blue-700' : 
+                            'bg-yellow-100 text-yellow-700'}`}>
+                          {testResults.southAfricaCompatibility.mastercard}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span>American Express:</span>
+                        <span className={`font-medium capitalize px-3 py-1 rounded-full text-xs
+                          ${testResults.southAfricaCompatibility.amex === 'excellent' ? 'bg-green-100 text-green-700' : 
+                            testResults.southAfricaCompatibility.amex === 'good' ? 'bg-blue-100 text-blue-700' : 
+                            'bg-yellow-100 text-yellow-700'}`}>
+                          {testResults.southAfricaCompatibility.amex}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span>Major SA Banks:</span>
+                        <span className={`font-medium capitalize px-3 py-1 rounded-full text-xs
+                          ${testResults.southAfricaCompatibility.localBanks === 'compatible' ? 'bg-green-100 text-green-700' : 
+                            'bg-yellow-100 text-yellow-700'}`}>
+                          {testResults.southAfricaCompatibility.localBanks}
+                        </span>
                       </div>
                     </div>
                   </div>
 
+                  {/* Warnings Section */}
+                  {testResults.warnings && testResults.warnings.length > 0 && (
+                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-yellow-900 mb-2 flex items-center gap-2">
+                        <AlertTriangle className="w-4 h-4" />
+                        Important Warnings
+                      </h4>
+                      <ul className="space-y-1 text-sm text-yellow-800">
+                        {testResults.warnings.map((warning, index) => (
+                          <li key={index} className="flex items-start gap-2">
+                            <span className="text-yellow-600 mt-0.5">•</span>
+                            {warning}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Recommended Actions */}
                   <div className="bg-blue-50 rounded-lg p-4">
                     <h4 className="font-semibold text-gray-900 mb-2">Recommended Actions</h4>
                     <ul className="space-y-1 text-sm text-gray-700">
@@ -376,12 +451,63 @@ export default function ComprehensiveCardVerification() {
                     </ul>
                   </div>
 
-                  <button
-                    onClick={resetTest}
-                    className="w-full py-3 px-4 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors"
-                  >
-                    Test Another Card
-                  </button>
+                  {/* Card Details */}
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-gray-900 mb-2">Card Details</h4>
+                    <div className="grid grid-cols-2 gap-3 text-sm">
+                      <div>
+                        <span className="text-gray-600">Card Brand:</span>
+                        <p className="font-medium capitalize">{testResults.cardType}</p>
+                      </div>
+                      {testResults.issuerBank && testResults.issuerBank !== 'Unknown Bank' && (
+                        <div>
+                          <span className="text-gray-600">Issuing Bank:</span>
+                          <p className="font-medium">{testResults.issuerBank}</p>
+                        </div>
+                      )}
+                      {testResults.issuingCountry && (
+                        <div>
+                          <span className="text-gray-600">Issuing Country:</span>
+                          <p className="font-medium">{testResults.issuingCountry}</p>
+                        </div>
+                      )}
+                      <div>
+                        <span className="text-gray-600">Confidence:</span>
+                        <p className="font-medium">{testResults.confidence}% accurate</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="space-y-3">
+                    <button
+                      onClick={resetTest}
+                      className="w-full py-3 px-4 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors"
+                    >
+                      Test Another Card
+                    </button>
+                    
+                    {/* Upgrade CTA */}
+                    <div className="p-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg text-white">
+                      <h4 className="text-lg font-bold mb-2">Want 100% Certainty?</h4>
+                      <p className="text-sm mb-3 text-indigo-100">
+                        Get a guaranteed verification with real transaction test for only R20
+                      </p>
+                      <button className="w-full bg-white text-indigo-600 px-4 py-2 rounded-lg font-semibold hover:bg-indigo-50 transition-colors">
+                        Upgrade to Guaranteed Check - R20
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Disclaimer */}
+                <div className="mt-6 p-4 bg-gray-50 rounded-lg text-xs text-gray-600">
+                  <p className="font-semibold mb-1">Disclaimer:</p>
+                  <p>
+                    This free check is approximately {testResults.confidence}% accurate and based on card metadata. 
+                    For 100% certainty, use our guaranteed verification service. Always notify 
+                    your bank before international travel.
+                  </p>
                 </div>
               </div>
             )}
@@ -483,8 +609,6 @@ export default function ComprehensiveCardVerification() {
           </div>
         </div>
       </section>
-
-
 
       <style jsx>{`
         @keyframes fadeIn {
