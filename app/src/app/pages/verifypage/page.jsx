@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CheckCircle, AlertTriangle, CreditCard, Shield, Globe, Users, Clock, Zap, Star, ArrowRight, Lock, XCircle } from 'lucide-react';
+import { CheckCircle, AlertTriangle, CreditCard, Shield, Globe, Users, Clock, Zap, Star, ArrowRight, Lock, XCircle, AlertCircle } from 'lucide-react';
 
 export default function ComprehensiveCardVerification() {
   const [cardNumber, setCardNumber] = useState('');
@@ -15,6 +15,7 @@ export default function ComprehensiveCardVerification() {
   const [testResults, setTestResults] = useState(null);
   const [currentStep, setCurrentStep] = useState(1);
   const [activeInfo, setActiveInfo] = useState('why-test');
+  const [apiError, setApiError] = useState(null);
 
   // Enhanced BIN-based type detection
   const detectCardType = (num) => {
@@ -33,6 +34,8 @@ export default function ComprehensiveCardVerification() {
     const newErrors = {};
     const cleanCardNumber = cardNumber.replace(/\s/g, '');
     
+    // For free tier, we only need 6 digits minimum for BIN lookup
+    // But we validate full card for better UX
     if (!/^\d{13,19}$/.test(cleanCardNumber)) {
       newErrors.cardNumber = 'Invalid card number (13-19 digits required)';
     }
@@ -66,6 +69,9 @@ export default function ComprehensiveCardVerification() {
   };
 
   const handleSubmit = async () => {
+    // Clear previous errors
+    setApiError(null);
+    
     if (!validate()) return;
     
     setLoading(true);
@@ -84,8 +90,53 @@ export default function ComprehensiveCardVerification() {
         }),
       });
 
+      // Handle different error scenarios
       if (!response.ok) {
         const errorData = await response.json();
+        
+        // Rate limit exceeded - encourage upgrade
+        if (response.status === 429) {
+          setApiError({
+            type: 'rate_limit',
+            title: 'Daily Limit Reached',
+            message: errorData.error || 'You\'ve reached the daily limit for free card checks.',
+            action: 'upgrade',
+            actionText: 'Upgrade to Guaranteed Check - R20'
+          });
+          setCurrentStep(1);
+          setLoading(false);
+          return;
+        }
+        
+        // BIN not found - offer paid tier
+        if (response.status === 404) {
+          setApiError({
+            type: 'not_found',
+            title: 'Card Not Recognized',
+            message: errorData.error || 'We couldn\'t identify this card. This might be a newer card or regional issuer.',
+            action: 'upgrade',
+            actionText: 'Try Guaranteed Verification - R20'
+          });
+          setCurrentStep(1);
+          setLoading(false);
+          return;
+        }
+        
+        // Server error - generic retry
+        if (response.status === 500) {
+          setApiError({
+            type: 'server_error',
+            title: 'Service Temporarily Unavailable',
+            message: 'Our validation service is experiencing issues. Please try again in a few minutes.',
+            action: 'retry',
+            actionText: 'Try Again'
+          });
+          setCurrentStep(1);
+          setLoading(false);
+          return;
+        }
+        
+        // Generic error
         throw new Error(errorData.error || 'Validation failed');
       }
 
@@ -108,7 +159,15 @@ export default function ComprehensiveCardVerification() {
       setCurrentStep(3);
     } catch (error) {
       console.error('Validation error:', error);
-      setErrors({ submit: error.message || 'Failed to validate card. Please try again.' });
+      
+      // Network error or unexpected error
+      setApiError({
+        type: 'network_error',
+        title: 'Connection Failed',
+        message: error.message || 'Unable to connect to validation service. Please check your internet connection and try again.',
+        action: 'retry',
+        actionText: 'Try Again'
+      });
       setCurrentStep(1);
     } finally {
       setLoading(false);
@@ -118,6 +177,7 @@ export default function ComprehensiveCardVerification() {
   const resetTest = () => {
     setCurrentStep(1);
     setTestResults(null);
+    setApiError(null);
     setCardNumber('');
     setExpiry('');
     setCvv('');
@@ -125,6 +185,16 @@ export default function ComprehensiveCardVerification() {
     setCardType('');
     setConsent(false);
     setErrors({});
+  };
+
+  const handleErrorAction = () => {
+    if (apiError?.action === 'retry') {
+      setApiError(null);
+      handleSubmit();
+    } else if (apiError?.action === 'upgrade') {
+      // TODO: Navigate to paid tier or show upgrade modal
+      alert('Upgrade to guaranteed verification - Coming soon!');
+    }
   };
 
   const stats = [
@@ -181,7 +251,7 @@ export default function ComprehensiveCardVerification() {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-200 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-3/4 left-1/4 w-64 h-64 bg-blue-200 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-200 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
@@ -232,10 +302,44 @@ export default function ComprehensiveCardVerification() {
                   <p className="text-gray-600">We'll test your card's compatibility with South African payment systems</p>
                 </div>
 
-                {errors.submit && (
-                  <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
-                    <XCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-red-700">{errors.submit}</p>
+                {/* API Error Display */}
+                {apiError && (
+                  <div className={`p-4 rounded-lg border flex items-start gap-3 ${
+                    apiError.type === 'rate_limit' ? 'bg-yellow-50 border-yellow-200' :
+                    apiError.type === 'not_found' ? 'bg-blue-50 border-blue-200' :
+                    'bg-red-50 border-red-200'
+                  }`}>
+                    {apiError.type === 'rate_limit' && <AlertCircle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />}
+                    {apiError.type === 'not_found' && <AlertTriangle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />}
+                    {(apiError.type === 'server_error' || apiError.type === 'network_error') && 
+                      <XCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />}
+                    
+                    <div className="flex-1">
+                      <h4 className={`font-semibold mb-1 ${
+                        apiError.type === 'rate_limit' ? 'text-yellow-900' :
+                        apiError.type === 'not_found' ? 'text-blue-900' :
+                        'text-red-900'
+                      }`}>
+                        {apiError.title}
+                      </h4>
+                      <p className={`text-sm mb-3 ${
+                        apiError.type === 'rate_limit' ? 'text-yellow-700' :
+                        apiError.type === 'not_found' ? 'text-blue-700' :
+                        'text-red-700'
+                      }`}>
+                        {apiError.message}
+                      </p>
+                      <button
+                        onClick={handleErrorAction}
+                        className={`text-sm font-medium px-4 py-2 rounded-lg transition ${
+                          apiError.action === 'upgrade' 
+                            ? 'bg-blue-600 text-white hover:bg-blue-700'
+                            : 'bg-gray-600 text-white hover:bg-gray-700'
+                        }`}
+                      >
+                        {apiError.actionText}
+                      </button>
+                    </div>
                   </div>
                 )}
 

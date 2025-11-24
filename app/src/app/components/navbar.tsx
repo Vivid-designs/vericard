@@ -7,15 +7,15 @@ import Image from 'next/image';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState('en');
+  // const [currentLanguage, setCurrentLanguage] = useState('en');
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  // const [isLanguageOpen, setIsLanguageOpen] = useState(false);
 
-  const languages = [
-    { code: 'en', label: 'English', flag: '🇺🇸' },
-    { code: 'zh', label: '中文', flag: '🇨🇳' },
-    { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
-  ];
+  // const languages = [
+  //   { code: 'en', label: 'English', flag: '🇺🇸' },
+  //   { code: 'zh', label: '中文', flag: '🇨🇳' },
+  //   { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
+  // ];
 
   // Handle scroll effect
   useEffect(() => {
@@ -27,13 +27,13 @@ export default function Navbar() {
   }, []);
 
   // Close language dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = () => setIsLanguageOpen(false);
-    if (isLanguageOpen) {
-      document.addEventListener('click', handleClickOutside);
-      return () => document.removeEventListener('click', handleClickOutside);
-    }
-  }, [isLanguageOpen]);
+  // useEffect(() => {
+  //   const handleClickOutside = () => setIsLanguageOpen(false);
+  //   if (isLanguageOpen) {
+  //     document.addEventListener('click', handleClickOutside);
+  //     return () => document.removeEventListener('click', handleClickOutside);
+  //   }
+  // }, [isLanguageOpen]);
 
   return (
     <nav className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-6xl rounded-full transition-all duration-300 ${
@@ -77,8 +77,8 @@ export default function Navbar() {
 
         {/* Right Side Actions */}
         <div className="flex items-center gap-4">
-          {/* Enhanced Language Selector */}
-          <div className="relative hidden md:block">
+          {/* Enhanced Language Selector - COMMENTED OUT */}
+          {/* <div className="relative hidden md:block">
             <button
               onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                 e.stopPropagation();
@@ -92,7 +92,6 @@ export default function Navbar() {
               <ChevronDown className={`h-3 w-3 text-gray-500 transition-transform duration-200 ${isLanguageOpen ? 'rotate-180' : ''}`} />
             </button>
 
-            {/* Language Dropdown */}
             {isLanguageOpen && (
               <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-200 py-2 animate-in slide-in-from-top-2 duration-200">
                 {languages.map((lang) => (
@@ -115,7 +114,7 @@ export default function Navbar() {
                 ))}
               </div>
             )}
-          </div>
+          </div> */}
 
           {/* Enhanced CTA Button */}
           <div className="hidden md:block">
@@ -128,7 +127,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Enhanced Mobile Menu Button - FIXED NOT */}
+          {/* Enhanced Mobile Menu Button */}
           <button
             className="md:hidden p-2.5 rounded-xl hover:bg-blue-50 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-colors duration-200 "
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -152,12 +151,11 @@ export default function Navbar() {
 
       {/* Enhanced Mobile Navigation */}
       <div className={`md:hidden border-t border-white/20 transition-all duration-300 overflow-hidden ${
-        //todo fix mobile menu 
         isMobileMenuOpen ? 'max-h-100 opacity-100' : 'max-h-0 opacity-0'
       }`}>
         <div className="bg-white/95 backdrop-blur-xl rounded-b-2xl py-4 space-y-1">
-          {/* Mobile Language Selector */}
-          <div className="px-6 pb-3 border-b border-gray-100">
+          {/* Mobile Language Selector - COMMENTED OUT */}
+          {/* <div className="px-6 pb-3 border-b border-gray-100">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-600">Language</span>
               <select
@@ -172,7 +170,7 @@ export default function Navbar() {
                 ))}
               </select>
             </div>
-          </div>
+          </div> */}
 
           {/* Mobile Navigation Links */}
           <Link
