@@ -39,7 +39,7 @@ export default function Hero() {
           {/* Right Image */}
           <div className="relative">
             <Image
-            src={"/v-logo.png"}
+            src={"/blue card in hand.png"}
             alt="Hero Image"
             width={500}
             height={500}
